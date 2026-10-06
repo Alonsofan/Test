@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background: transparent;
+        font-family: Arial, sans-serif;
+    }
+
+    .comparison {
+        position: relative;
+        width: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+        overflow: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .comparison img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    /* Vorher-Bild */
+    .before {
+        position: relative;
+        width: 100%;
+    }
+
+    /* Nachher-Bild */
+    .after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .after img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: left top;
+    }
+
+    /* Mittlere Linie */
+    .slider-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 3px;
+        background: white;
+        transform: translateX(-50%);
+        pointer-events: none;
+        box-shadow: 0 0 8px rgba(0,0,0,0.4);
+    }
+
+    /* Griff */
+    .slider-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 48px;
+        height: 48px;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+    }
+
+    .slider-button::before {
+        content: "‹";
+        font-size: 28px;
+        color: #333;
+        margin-right: 3px;
+    }
+
+    .slider-button::after {
+        content: "›";
+        font-size: 28px;
+        color: #333;
+        margin-left: 3px;
+    }
+
+    /* Beschriftungen */
+    .label {
+        position: absolute;
+        top: 20px;
+        padding: 8px 13px;
+        background: rgba(0,0,0,0.55);
+        color: white;
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 3px;
+        pointer-events: none;
+    }
+
+    .label.before-label {
+        left: 20px;
+    }
+
+    .label.after-label {
+        right: 20px;
+    }
+
+    /* Unsichtbarer Slider */
+    .range {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        cursor: ew-resize;
+        z-index: 10;
+    }
+
+    @media (max-width: 600px) {
+        .slider-button {
+            width: 40px;
+            height: 40px;
+        }
+
+        .label {
+            top: 10px;
+            padding: 6px 9px;
+            font-size: 10px;
+        }
+
+        .label.before-label {
+            left: 10px;
+        }
+
+        .label.after-label {
+            right: 10px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="comparison" id="comparison">
+
+    <!-- VORHER -->
+    <div class="before">
+        <img src="VORHER-BILD-URL" alt="Vorher">
+    </div>
+
+    <!-- NACHHER -->
+    <div class="after" id="after">
+        <img src="NACHHER-BILD-URL" alt="Nachher">
+    </div>
+
+    <!-- Linie -->
+    <div class="slider-line" id="line"></div>
+
+    <!-- Button -->
+    <div class="slider-button" id="button"></div>
+
+    <!-- Beschriftungen -->
+    <div class="label before-label">Vorher</div>
+    <div class="label after-label">Nachher</div>
+
+    <!-- Slider -->
+    <input
+        type="range"
+        class="range"
+        min="0"
+        max="100"
+        value="50"
+        id="range"
+        aria-label="Vorher Nachher Vergleich"
+    >
+
+</div>
+
+<script>
+    const range = document.getElementById("range");
+    const after = document.getElementById("after");
+    const line = document.getElementById("line");
+    const button = document.getElementById("button");
+
+    function updateSlider() {
+        const value = range.value;
+
+        after.style.width = value + "%";
+        line.style.left = value + "%";
+        button.style.left = value + "%";
+    }
+
+    range.addEventListener("input", updateSlider);
+
+    updateSlider();
+</script>
+
+</body>
+</html>
