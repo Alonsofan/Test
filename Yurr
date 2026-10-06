@@ -33,13 +33,13 @@
         height: auto;
     }
 
-    /* Vorher-Bild */
+    /* techno_classica_lamborghini_diablo_canon_raw */
     .before {
         position: relative;
         width: 100%;
     }
 
-    /* Nachher-Bild */
+    /* techno_classica_lamborghini_diablo_canon */
     .after {
         position: absolute;
         top: 0;
